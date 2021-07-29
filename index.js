@@ -1,6 +1,7 @@
+require("dotenv/config");
+
 const Express = require("express");
 const mongoose = require("mongoose");
-require("dotenv/config");
 const app = Express();
 
 //.env
@@ -9,7 +10,7 @@ const Pass = process.env.PASS;
 
 //main api
 app.get("/", (req, res) => {
-  res.send("Instant Cloths Server");
+  res.send("Instant Cloths Server Ap");
 });
 
 //Database connection
@@ -19,6 +20,8 @@ mongoose
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
+    const categoryRouter = require("./routes/category");
+    app.use("/shop", categoryRouter);
     app.listen(3000, () => {
       console.log("app listening on port 3000");
     });
