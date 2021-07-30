@@ -5,17 +5,25 @@ const User = new mongoose.Schema({
     type: String,
     required: true,
   },
-  password: {
+  //just like amazon has prime members we can have our subscribed customers
+  subscribedUser: {
     type: String,
     required: true,
   },
-  email: {
-    type: String,
+  //when did he join
+  userDate: {
+    type: Date,
     required: true,
+    default: Date.now,
   },
   phone: {
     type: String,
-    required: true,
+  },
+  password: {
+    type: String,
+  },
+  email: {
+    type: String,
   },
   order: {
     type: mongoose.Schema.Types.ObjectId,

@@ -1,0 +1,43 @@
+GET http://localhost:3000/users
+
+###
+GET http://localhost:3000/users/610463ac00542528f4615e42
+
+//the below one is deleted user
+GET http://localhost:3000/users/610461ed12e8ff04d01bd343
+
+###
+
+POST http://localhost:3000/users
+Content-Type: application/json
+
+
+
+{
+  "name" : "Muhammad Roshan",
+  "subscribedUser": "Our Store App"
+}
+
+###
+DELETE http://localhost:3000/users/610461ed12e8ff04d01bd343
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+
+
+{
+  "name" : "Ibrahim dev",
+  "subscribedUser": "Our Store App"
+}
+
+
+
+###
+PATCH http://localhost:3000/users/610469ef7b9d471c506d27af
+Content-Type: application/json
+
+{
+  "name": "Ibrahim Fayyaz"
+}
