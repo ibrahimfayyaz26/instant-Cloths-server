@@ -59,7 +59,6 @@ router.put("/:id", async (req, res) => {
 });
 
 //Delete one Category
-
 router.delete("/:id", async (req, res) => {
   const catId = req.params.id;
   if (!catId) {
