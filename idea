@@ -2,7 +2,14 @@ User // Done
 Item // Done
 Shop // Done
 Category // Done
+<<<<<<< HEAD
 OrderItem // Done
 Order // Done
 Messaging // Pending
 Payment // Pending
+=======
+OrderItem
+Order
+Messaging // Once the app is built
+Payment
+>>>>>>> 091dbfd0cbeae95b6ceb6623a88642b1d924aaab
