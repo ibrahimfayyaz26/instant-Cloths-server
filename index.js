@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const app = express();
 require("dotenv/config");
 const Category = require("./routes/Category");
+const usersRouter = require("./routes/users");
 
 //.env
 const User = process.env.ADMIN;
@@ -18,6 +19,7 @@ app.use(morgan("tiny"));
 
 //Api
 app.use("/Category", Category);
+app.use("/users", usersRouter);
 
 //main api
 app.get("/", (req, res) => {
