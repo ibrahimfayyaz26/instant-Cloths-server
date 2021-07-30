@@ -6,64 +6,72 @@ const Category = require("../models/Category");
 router.get("/", async (req, res) => {
   try {
     const categories = await Category.find();
-    res.json(categories);
+    res.send(categories);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).send({ message: err.message });
   }
 });
 
 //Get one Category
-router.get("/:id", getCategory, (req, res) => {
-  res.json(res.category);
+router.get("/:id", async (req, res) => {
+  try {
+    const categories = await Category.findById(req.params.id);
+    res.send(categories);
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
 });
+
 //Create one Category
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const category = new Category({
     name: req.body.name,
   });
 
   try {
     const newCategory = await category.save();
-    res.status(201).json(newCategory);
+    res.status(201).send(newCategory);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(400).send({ message: err.message });
   }
 });
 
 //Update one Category
-router.patch("/:id", getCategory, (req, res) => {
-  if (req.body.name != null) {
-    res.category.name = req.body.name;
+router.put("/:id", async (req, res) => {
+  const catId = req.params.id;
+  if (!catId) {
+    res.status(404).send({ success: false, error: "No id" });
   }
   try {
-    const updatedCategory = await res.category.save();
-    res.json(updatedCategory);
+    const updatedCategory = await Category.findByIdAndUpdate(
+      catId,
+      {
+        name: req.body.name,
+      },
+      {
+        new: true,
+      }
+    );
+    res.send(updatedCategory);
   } catch {
-    res.status(400).json({ message: err.message });
+    res.status(400).send({ message: err.message });
   }
 });
 
 //Delete one Category
-router.delete("/:id", getCategory, (req, res) => {
+
+router.delete("/:id", async (req, res) => {
+  const catId = req.params.id;
+  if (!catId) {
+    res.status(404).send({ success: false, error: "No id" });
+  }
+
   try {
-    await res.category.remove();
-    res.json({ message: "Delete This Subscriber" });
+    await Category.findByIdAndRemove(catId);
+    res.send({ message: "Delete This Subscriber" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).send({ message: err.message });
   }
 });
-
-async function getCategory(req, res, next) {
-  try {
-    category = await Category.findById(req.params.id);
-    if (category == null) {
-      return res.status(404).json({ message: "can't find category" });
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-  res.category = category;
-  next();
-}
 
 module.exports = router;
