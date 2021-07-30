@@ -1,12 +1,20 @@
-const Express = require("express");
+const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
+const morgan = require("morgan");
+const app = express();
 require("dotenv/config");
 const Category = require("./routes/Category");
-const app = Express();
 
 //.env
 const User = process.env.ADMIN;
 const Pass = process.env.PASS;
+
+//Middleware
+app.use(express.json());
+app.use(cors());
+app.options("*", cors());
+app.use(morgan("tiny"));
 
 //Api
 app.use("/Category", Category);
