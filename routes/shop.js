@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
     res.status(400).send({ message: err.message });
   }
 });
-//update shop
+//update one shop
 router.put("/:id", (req, res) => {
   Shop.findByIdAndUpdate(
     req.params.id,

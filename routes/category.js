@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//Update one Category
+//Update  Category
 router.put("/:id", async (req, res) => {
   const catId = req.params.id;
   if (!catId) {
