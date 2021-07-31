@@ -4,11 +4,11 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 require("dotenv/config");
-const Category = require("./routes/Category");
+const Category = require("./routes/category");
 const Users = require("./routes/User");
 const Order = require("./routes/Order");
 const Item = require("./routes/Item");
-const Shop = require("./routes/Shop");
+const Shop = require("./routes/shop");
 
 //.env
 const User = process.env.ADMIN;
@@ -40,7 +40,7 @@ mongoose
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
-    const categoryRouter = require("./routes/Category");
+    const categoryRouter = require("./routes/category");
     app.use("/shop", categoryRouter);
     app.listen(3000, () => {
       console.log("app listening on port 3000");
