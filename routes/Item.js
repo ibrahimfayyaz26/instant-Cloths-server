@@ -49,7 +49,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 //Create one Item
-router.post("/", upload.array("images"), async (req, res) => {
+router.post("/", upload.single("images"), async (req, res) => {
   let imagesFormat = [];
 
   req.files.map((fileT) => {
