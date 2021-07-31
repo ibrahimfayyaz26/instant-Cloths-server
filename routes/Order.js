@@ -61,7 +61,7 @@ router.put("/:id", async (req, res) => {
 
 //Create one Order
 router.post("/", async (req, res) => {
-  const ids = Promise.all(
+  const orderItemIds = await Promise.all(
     req.body.orderItems.map(async (orders) => {
       const od = await new OrderItem({
         quantity: orders.quantity,
@@ -71,8 +71,6 @@ router.post("/", async (req, res) => {
       return newOd._id;
     })
   );
-
-  const orderItemIds = await ids;
 
   const total = await Promise.all(
     orderItemIds.map(async (orders) => {

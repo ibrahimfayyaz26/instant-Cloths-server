@@ -5,13 +5,8 @@ const User = new mongoose.Schema({
     type: String,
     required: true,
   },
-  //just like amazon has prime members we can have our subscribed customers
-  subscribedUser: {
-    type: String,
-    required: true,
-  },
   //when did he join
-  userDate: {
+  date: {
     type: Date,
     required: true,
     default: Date.now,
