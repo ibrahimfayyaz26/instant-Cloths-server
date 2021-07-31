@@ -62,7 +62,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 
   const shop = new Shop({
     name: req.body.name,
-    image: `${req.protocol}://${req.get("host")}/uploads/${req.file.fileName}`,
+    image: `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`,
     rating: req.body.rating,
     user: req.body.user,
     street: req.body.street,
