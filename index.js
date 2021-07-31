@@ -8,6 +8,7 @@ const Category = require("./routes/Category");
 const Users = require("./routes/User");
 const Order = require("./routes/Order");
 const Item = require("./routes/Item");
+const Shop = require("./routes/Shop");
 
 //.env
 const User = process.env.ADMIN;
@@ -25,6 +26,7 @@ app.use("/Category", Category);
 app.use("/User", Users);
 app.use("/Order", Order);
 app.use("/Item", Item);
+app.use("/Shop", Shop);
 
 //main api
 app.get("/", (req, res) => {

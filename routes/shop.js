@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //create shop
-router.post("/", async, (res, res) => {
+router.post("/", async (req, res) => {
   const shop = new Shop({
     name: req.body.name,
     image: req.body.image,
@@ -53,6 +53,7 @@ router.put("/:id", (req, res) => {
       city: req.body.city,
       country: req.body.country,
       coordinates: req.body.coordinates,
+      orders: req.body.orders,
     },
     {
       new: true,
