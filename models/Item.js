@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Item = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   size: [
     {
@@ -12,7 +12,7 @@ const Item = new mongoose.Schema({
   ],
   description: {
     type: String,
-    required: true,
+    // required: true,
   },
   richDescription: {
     type: String,
@@ -21,21 +21,21 @@ const Item = new mongoose.Schema({
   images: [{ type: String }],
   price: {
     type: Number,
-    required: true,
+    // required: true,
   },
   countInStock: {
     type: Number,
-    required: true,
+    // required: true,
   },
   shop: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Shop",
-    required: true,
+    // required: true,
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
-    required: true,
+    // required: true,
   },
 });
 
