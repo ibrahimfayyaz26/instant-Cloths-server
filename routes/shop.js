@@ -51,18 +51,18 @@ router.get("/:id", async (req, res) => {
 });
 
 //create shop
-router.post("/", upload.single("images"), async (req, res) => {
-  let imagesFormat = [];
+router.post("/", upload.single("image"), async (req, res) => {
+  // let imagesFormat = [];
 
-  req.file.map((fileT) => {
-    imagesFormat.push(
-      `${req.protocol}://${req.get("host")}/uploads/${fileT.fileName}`
-    );
-  });
+  // req.file.map((fileT) => {
+  //   imagesFormat.push(
+  //     `${req.protocol}://${req.get("host")}/uploads/${fileT.fileName}`
+  //   );
+  // });
 
   const shop = new Shop({
     name: req.body.name,
-    image: req.body.image,
+    image: `${req.protocol}://${req.get("host")}/uploads/${req.file.fileName}`,
     rating: req.body.rating,
     user: req.body.user,
     street: req.body.street,
