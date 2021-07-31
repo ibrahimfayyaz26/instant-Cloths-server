@@ -5,7 +5,9 @@ const morgan = require("morgan");
 const app = express();
 require("dotenv/config");
 const Category = require("./routes/Category");
-const usersRouter = require("./routes/users");
+const Users = require("./routes/User");
+const Order = require("./routes/Order");
+const Item = require("./routes/Item");
 
 //.env
 const User = process.env.ADMIN;
@@ -16,10 +18,13 @@ app.use(express.json());
 app.use(cors());
 app.options("*", cors());
 app.use(morgan("tiny"));
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 //Api
 app.use("/Category", Category);
-app.use("/users", usersRouter);
+app.use("/User", Users);
+app.use("/Order", Order);
+app.use("/Item", Item);
 
 //main api
 app.get("/", (req, res) => {
