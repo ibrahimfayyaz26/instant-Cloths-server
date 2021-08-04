@@ -5,6 +5,7 @@ const ChatContainer = mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chat",
+      default: [],
     },
   ],
   users: [

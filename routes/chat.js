@@ -21,8 +21,7 @@ router.get("/:id", async (req, res) => {
   try {
     const Chats = await ChatContainer.findById(req.params.id)
       .populate("users")
-      .populate("meassages")
-      .sort({ date: -1 });
+      .populate("meassages");
     res.send(Chats);
   } catch (err) {
     res.status(500).send({ message: err.message });
@@ -31,18 +30,8 @@ router.get("/:id", async (req, res) => {
 
 //Create one Chat
 router.post("/", async (req, res) => {
-  const ChatIds = await Promise.all(
-    req.body.messages.map(async (Chats) => {
-      const od = await new Chat({
-        message: Chats,
-      });
-      const newOd = await od.save();
-      return newOd._id;
-    })
-  );
-
   const nChat = new ChatContainer({
-    messages: ChatIds,
+    users: req.body.users,
   });
 
   try {
@@ -53,22 +42,34 @@ router.post("/", async (req, res) => {
   }
 });
 
-//Delete one Chat
-router.delete("/:id", async (req, res) => {
-  Chat.findByIdAndRemove(req.params.id)
-    .then(async (i) => {
-      if (i) {
-        await i.ChatItems.map(async (item) => {
-          await ChatItem.findByIdAndRemove(item);
-        });
-        return res.send("successfully deleted");
-      } else {
-        res.send("No Data Is Found");
+//Add Message
+router.put("/:id", async (req, res) => {
+  const ChatId = req.params.id;
+
+  const message = new Chat({
+    message: req.body.message,
+  });
+
+  const Chats = await ChatContainer.findById(ChatId).select("meassages");
+
+  let newMessages = Chats.messages;
+
+  newMessages.push(message._id);
+
+  try {
+    const updatedChat = await ChatContainer.findByIdAndUpdate(
+      ChatId,
+      {
+        messages: newMessages,
+      },
+      {
+        new: true,
       }
-    })
-    .catch((err) => {
-      res.status(404).send({ success: false, error: err });
-    });
+    );
+    res.send(updatedChat);
+  } catch {
+    res.status(400).send({ message: err.message });
+  }
 });
 
 module.exports = router;
