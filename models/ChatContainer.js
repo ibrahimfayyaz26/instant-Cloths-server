@@ -17,4 +17,4 @@ const ChatContainer = mongoose.Schema({
   date: Date.now(),
 });
 
-module.exports = mongoose.model("ChatContainer", ChatContainer);
+module.exports = mongoose.model("chatcontainers", ChatContainer);

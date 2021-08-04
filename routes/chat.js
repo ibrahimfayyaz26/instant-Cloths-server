@@ -2,6 +2,37 @@ const express = require("express");
 const router = express.Router();
 const Chat = require("../models/Chat");
 const ChatContainer = require("../models/ChatContainer");
+const Pusher = require("pusher");
+const mongoose = require("mongoose");
+
+const pusher = new Pusher({
+  appId: "1244085",
+  key: "efab99175a24be44c2c7",
+  secret: "37706e86d4620117fe2a",
+  cluster: "ap2",
+  useTLS: true,
+});
+
+const db = mongoose.connection;
+
+db.once("open", () => {
+  console.log("connected");
+
+  const msgCollection = db.collection("chatcontainers");
+  const changeStream = msgCollection.watch();
+
+  changeStream.on("change", (change) => {
+    console.log("change", change);
+    if (change.operationType === "update") {
+      const mD = change.fullDocument;
+      pusher.trigger("instant-clothes", "updated", {
+        messages: mD.messages,
+        users: mD.users,
+        date: mD.date,
+      });
+    }
+  });
+});
 
 //Get all Chats
 router.get("/", async (req, res) => {
